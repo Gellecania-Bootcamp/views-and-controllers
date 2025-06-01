@@ -3,7 +3,7 @@
     xmlns="sap.m"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-    <Page id="idMainPage" title="{i18n>shoppingPageTitle}" floatingFooter="true">
+    <Page id="idMainPage" title="{i18n>shoppingPageTitle}" floatingFooter="true" class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer sapUiResponsivePadding--floatingFooter">
     <content>
         <VBox id="idVBox" class="sapUiSmallMargin">
 

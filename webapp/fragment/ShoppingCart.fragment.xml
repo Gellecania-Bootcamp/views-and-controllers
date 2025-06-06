@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Table id="idTableSCart" inset="false">
+        <headerToolbar>
+            <OverflowToolbar id="idOFT">
+                <content>
+                    <Title id="idTableTitleSCart" text="{i18n>shoppingCartTitle}"/>
+                    <ToolbarSpacer id="idTSpacer"/>
+                    <Button id="idBtnAddItems" icon="sap-icon://cart-4" tooltip="Add to Cart" press="onAddItem"/>
+                </content>
+            </OverflowToolbar>
+        </headerToolbar>
+            <columns>
+                <Column id="idCol1">
+                    <Text id="idColText1" text="{i18n>itemCol}" />
+                </Column>
+                <Column id="idCol2">
+                    <Text id="idColText2" text="{i18n>quantityCol}" />
+                </Column>
+                <Column id="idCol3">
+                    <Text id="idColText3" text="{i18n>priceCol}" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem id="idColListItem1" vAlign="Middle">
+                    <cells>
+                        <Text id="idText1" text="{i18n>item1Name}" />
+                        <Text id="idText2" text="{i18n>item1Qty}" />
+                        <Text id="idText3" text="{i18n>item1Price}" />
+                    </cells>
+                </ColumnListItem>
+                <ColumnListItem id="idColListItem2" vAlign="Middle">
+                    <cells>
+                        <Text id="idText4" text="{i18n>item2Name}" />
+                        <Text id="idText5" text="{i18n>item2Qty}" />
+                        <Text id="idText6" text="{i18n>item2Price}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+    </Table>
+</core:FragmentDefinition>

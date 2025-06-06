@@ -50,54 +50,52 @@ sap.ui.define([
         },
 
         onPressCheckout: function (){
-            var oView = this.getView();
-            var oTextBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+            var oInputFName = this.getView().byId("idInptFName");
+            var oInputLName = this.getView().byId("idInptLName");
+            var oInputFNameValue = oInputFName.getValue();
+            var oInputLNameValue = oInputLName.getValue();
+            var oRouter = this.getOwnerComponent().getRouter();
 
-            var sFName = oView.byId("idInptFName").getValue().trim();
-            var sLName = oView.byId("idInptLName").getValue().trim();
-            var sSelectedMOP = oView.byId("idSelMOP").getSelectedKey();
-            var sMobileNumber = oView.byId("idInputPhone").getValue().trim();
-            var sCreditCard = oView.byId("idInputCC").getValue().trim();
+            // Check if first name and last name is blank
+            if (oInputFNameValue === "" || oInputLNameValue === ""){
+               
+            // set value state to Error
+                oInputFName.setValueState("Error");
+                oInputLName.setValueState("Error");
+            } else {
+                oInputFName.setValueState("None");
+                oInputLName.setValueState("None");
 
-            // Check if both names are blank
-            if (sFName === "" && sLName === "") {
-                MessageBox.error(oTextBundle.getText("bothNamesBlankMsg"));
-                return;
+                //Navigate to review page passing first
+                oRouter.navTo("RouteReviewPage", {
+                    firstName: oInputFNameValue
+                });
+
             }
+        },
 
-            // Check if first name is blank
-            else if (sFName === "") {
-                MessageToast.show(oTextBundle.getText("requiredFieldMsg"));
-                return;
-            }
+        onAddItem: function(){
+            // Comment this code for now
+            // var oTextBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+            // var sMsg = oTextBundle.getText("addButtonMsg");
+                    // this.fnDisplayMsg(sMsg);
 
-            // Check if mode of payment is blank
-            else if (sSelectedMOP === "") {
-                MessageToast.show(oTextBundle.getText("requiredFieldMsg"));
-                return;
-            }
+            // Instantiate the fragment
 
-            // GCash validation
-            if (sSelectedMOP === "GCASH") {
-                var isValidMobile = /^09\d{9}$/.test(sMobileNumber);
-                if (!isValidMobile) {
-                    MessageBox.warning(oTextBundle.getText("invalidMobileMsg"));
-                    return;
-                }
-            }
-
-            // Credit Card validation
-            if (sSelectedMOP === "CC") {
-                var isValidCC = /^\d{16}$/.test(sCreditCard);
-                if (!isValidCC) {
-                    MessageBox.warning(oTextBundle.getText("invalidCCMsg"));
-                    return;
-                }
-            }
-
-            // If all validations pass
-            MessageBox.success(oTextBundle.getText("checkoutSuccessMsg"));
+            // create dialog lazily
+            if (!this.oDialog) {
+                // By using loadFragment, we are adding the fragment as a dependent to the View
+                // By doing so, we can use the functions inside the view's controller
+                this.oDialog = this.loadFragment({
+                    name: "com.training.exer1gellecania.fragment.ProductDialog"
+                });
+            } 
+            this.oDialog.then(function(oDialog) {
+                oDialog.open();
+            });
+        },
+        onCloseDialog: function (){
+            this.getView().byId("idProductDialog").close();
         }
-
     });
 });
